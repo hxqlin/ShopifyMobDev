@@ -16,16 +16,23 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
+        // get the JSON
         if let path = Bundle.main.path(forResource: "shopify", ofType: "json") {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
                 let json = JSON(data: data)
                 if json != JSON.null {
+                    // calculate the total Napoleon Batz spent
                     let batzTotal = totalBatzSpent(json: json)
+                    
+                    // change the corresponding text field to display the result
                     totalBatzSpentField.text = String(batzTotal)
+                    
+                    // calculate the total number of Awesome Bronze Bags sold
                     let numBags = totalBronzeBagsSold(json: json)
+                    
+                    // change the corresponding text field to display the result
                     totalBronzeBagsSoldField.text = String(numBags)
                 } else {
                     print("Could not get json from file, make sure that file contains valid json.")
